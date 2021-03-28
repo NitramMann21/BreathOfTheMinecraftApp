@@ -37,7 +37,7 @@ public class BreathOfTheMinecraft {
 	JLabel discord;
 	JLabel discordLink;
 	
-	String version = "Beta 1.0";
+	String version = "Release 1.0";
 	
 	public static void main(String[] args) {
 		new BreathOfTheMinecraft();
