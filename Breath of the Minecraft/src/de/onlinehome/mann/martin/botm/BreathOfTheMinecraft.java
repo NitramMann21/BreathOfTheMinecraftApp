@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class BreathOfTheMinecraft {
 	
 	JMenuBar menuBar;
 	JMenu menuTabs;
+	JMenu menuGithub;
+	
 	JMenu menuSocialMedia;
 	
 	JMenuItem creditsButton;
@@ -37,6 +40,11 @@ public class BreathOfTheMinecraft {
 	JMenuItem newsButton;
 	JMenuItem discordButton;
 	JMenuItem youtubeButton;
+	
+	JMenuItem codeButton;
+	JMenuItem downloadsButton;
+	JMenuItem forumButton;
+	JMenuItem wikiButton;
 	
 	JLabel botmIcon;
 	JLabel credits;
@@ -47,8 +55,8 @@ public class BreathOfTheMinecraft {
 	JLabel youtube;
 	JLabel youtubeLink;
 	
-	String version = "v1.1";
-	static int versionId = 4;
+	String version = "v1.1.1";
+	static int versionId = 5;
 	
 	public static void main(String[] args) {
 		new BreathOfTheMinecraft();
@@ -62,6 +70,8 @@ public class BreathOfTheMinecraft {
 		
 		menuBar = new JMenuBar();
 		menuTabs = new JMenu("Tabs");
+		menuGithub = new JMenu("GitHub");
+
 		menuSocialMedia = new JMenu("Social Media");
 		
 		creditsButton = new JMenuItem("Credits");
@@ -70,11 +80,20 @@ public class BreathOfTheMinecraft {
 		discordButton = new JMenuItem("Discord");
 		youtubeButton = new JMenuItem("YouTube");
 		
+		codeButton = new JMenuItem("Code");
+		downloadsButton = new JMenuItem("Downloads");
+		forumButton = new JMenuItem("Forum");
+		wikiButton = new JMenuItem("Wiki");
+		
 		creditsButton.addActionListener(new ButtonClickListener());
 		screenshotsButton.addActionListener(new ButtonClickListener());
 		newsButton.addActionListener(new ButtonClickListener());
 		discordButton.addActionListener(new ButtonClickListener());
 		youtubeButton.addActionListener(new ButtonClickListener());
+		codeButton.addActionListener(new ButtonClickListener());
+		downloadsButton.addActionListener(new ButtonClickListener());
+		forumButton.addActionListener(new ButtonClickListener());
+		wikiButton.addActionListener(new ButtonClickListener());
 		
 		botmIcon = new JLabel(icon);
 		credits = new JLabel("<html><body>Die Breath of the Minecraft-App wurde von Nitram21 programmiert.<br>Version: " + version + "</body></html>");
@@ -100,8 +119,13 @@ public class BreathOfTheMinecraft {
 		menuTabs.add(menuSocialMedia);
 		menuSocialMedia.add(discordButton);
 		menuSocialMedia.add(youtubeButton);
+		menuGithub.add(codeButton);
+		menuGithub.add(downloadsButton);
+		menuGithub.add(forumButton);
+		menuGithub.add(wikiButton);
 		
 		menuBar.add(menuTabs);
+		menuBar.add(menuGithub);
 		
 		frame.add(botmIcon);
 		frame.add(credits);
@@ -146,26 +170,31 @@ public class BreathOfTheMinecraft {
 		
 		getVersion();
 		
-		discordLink.addMouseListener(new MouseAdapter() {
+		MouseListener ml = new MouseAdapter() {
+			
 			@Override
-			public void mouseClicked(MouseEvent event) {
-				try {
-					Desktop.getDesktop().browse(new URI("https://discord.gg/cJebY37vty"));
-				} catch (IOException | URISyntaxException e) {
-					e.printStackTrace();
+			public void mouseClicked(MouseEvent e) {
+				
+				if(e.getSource() == discordLink) {
+					try {
+						Desktop.getDesktop().browse(new URI("https://discord.gg/cJebY37vty"));
+					} catch (IOException | URISyntaxException ex) {
+						ex.printStackTrace();
+					}
+				} else if(e.getSource() == youtubeLink) {
+					try {
+						Desktop.getDesktop().browse(new URI("https://www.youtube.com/channel/UC4PG2TobTvmsOVTWFClnmWA"));
+					} catch (IOException | URISyntaxException ex) {
+						ex.printStackTrace();
+					}
 				}
+				
 			}
-		});
-		youtubeLink.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent event) {
-				try {
-					Desktop.getDesktop().browse(new URI("https://www.youtube.com/channel/UC4PG2TobTvmsOVTWFClnmWA"));
-				} catch (IOException | URISyntaxException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+			
+		};
+		
+		discordLink.addMouseListener(ml);
+		youtubeLink.addMouseListener(ml);
 	}
 	
 	public static void getVersion() {
@@ -261,6 +290,30 @@ public class BreathOfTheMinecraft {
 				discordLink.setVisible(false);
 				youtube.setVisible(true);
 				youtubeLink.setVisible(true);
+			} else if(e.getSource() == codeButton) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://github.com/NitramMann21/BreathOfTheMinecraftApp"));
+				} catch (IOException | URISyntaxException ex) {
+					ex.printStackTrace();
+				}
+			} else if(e.getSource() == downloadsButton) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://github.com/NitramMann21/BreathOfTheMinecraftApp/releases"));
+				} catch (IOException | URISyntaxException ex) {
+					ex.printStackTrace();
+				}
+			} else if(e.getSource() == forumButton) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://github.com/NitramMann21/BreathOfTheMinecraftApp/issues"));
+				} catch (IOException | URISyntaxException ex) {
+					ex.printStackTrace();
+				}
+			} else if(e.getSource() == wikiButton) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://github.com/NitramMann21/BreathOfTheMinecraftApp/wiki"));
+				} catch (IOException | URISyntaxException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 		
